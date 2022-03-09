@@ -6,9 +6,9 @@ This file creates your application.
 """
 
 from crypt import methods
-from curses import flash
+import os
 from app import app
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from .forms import PropertyForm
 from app.models import Property
 from app import db
@@ -43,8 +43,10 @@ def create_property():
             price = request.form["price"]
             location = request.form["location"]
             type = request.form["type"]
+
             file = form.file_upload.data
             file_name = secure_filename(file.filename)
+            file.save(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
 
 
             property = Property(property_title, property_desc, no_rooms, no_bathrooms, price, location, type, file_name)
@@ -56,10 +58,23 @@ def create_property():
 
     return render_template('form.html', form=form)
 
-@app.route('/about/')
+def  get_uploaded_images():
+    path = os.path.join(os.getcwd(),app.config["UPLOAD_FOLDER"] )
+    return [file for subdir, dirs, files in os.walk(path) for file in files]
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    return send_from_directory(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']), filename)
+
+@app.route('/properties')
 def display_properties():
-    """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    properties = db.session.query(Property).all()
+    return render_template('properties.html', properties=properties)
+
+@app.route('/properties/<propertyid>')
+def display_property(propertyid):
+    property = Property.query.get(propertyid)
+    return render_template('property.html', property=property)
 
 
 ###

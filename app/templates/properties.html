@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="properties">
+    {% if properties %}
+        {% for property in properties %}
+            <div>
+                <img class="property-photo" src="{{ url_for('get_image', filename=property.file_name) }}" alt="File">
+                <div>
+                    <p class="title">{{ property.title }}</p>
+                    <p class="location">
+                        <span class="material-icons-outlined">place</span> &nbsp; {{ property.location }}
+                    </p>
+                    <p class="price">${{ property.price }}</p>
+                </div>
+                <a class="view-btn" href="{{ url_for('display_property', propertyid=property.id) }}">
+                    View Property
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="property">
+    {% if property %}
+            <div>
+                <img class="photo" src="{{ url_for('get_image', filename=property.file_name) }}" alt="File">
+                <div>
+                    <h1 class="title">{{ property.title }}</h1>
+                    <div>
+                        <span class="price">${{ property.price }}</span>
+                        <span class="type">{{ property.type|capitalize }}</span>
+                    </div>
+                    <p>{{ property.description }}</p>
+
+                    <div>
+                        <div>
+                            <span class="material-icons-outlined">bed</span> &nbsp; {{ property.rooms}} Bedrooms
+                        </div>
+                        <div>
+                            <span class="material-icons-outlined">bathtub</span> &nbsp; {{ property.bathrooms}} Bathrooms
+                        </div>
+                    </div>
+
+                    <p class="location"><span class="material-icons-outlined">place</span> &nbsp; {{ property.location }}</p>
+
+                    <button>Email Realtor</button>
+                </div>
+               
+            </div>
+    {% endif %}
+</div>
+
+{% endblock %}
