@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 
+{% block css %} 
+    <link rel="stylesheet" href="/static/css/properties.css">
+{% endblock%}
+
 {% block main %}
 
 <div class="properties">
     {% if properties %}
         {% for property in properties %}
-            <div>
+            <div class="property">
                 <img class="property-photo" src="{{ url_for('get_image', filename=property.file_name) }}" alt="File">
-                <div>
+                <div class="property-details">
                     <p class="title">{{ property.title }}</p>
                     <p class="location">
-                        <span class="material-icons-outlined">place</span> &nbsp; {{ property.location }}
+                        <span class="material-icons-outlined">place</span>{{' '}}{{ property.location }}
                     </p>
-                    <p class="price">${{ property.price }}</p>
+                    <div class="price">
+                        <span>${{ property.price }}</span>
+                    </div>
                 </div>
                 <a class="view-btn" href="{{ url_for('display_property', propertyid=property.id) }}">
                     View Property

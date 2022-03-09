@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
+{% block css %} 
+    <link rel="stylesheet" href="/static/css/property.css">
+{% endblock%}
+
 {% block main %}
 
-<div class="property">
+<div class="property-container">
     {% if property %}
-            <div>
+            <div class="property">
                 <img class="photo" src="{{ url_for('get_image', filename=property.file_name) }}" alt="File">
-                <div>
+                <div class="details">
                     <h1 class="title">{{ property.title }}</h1>
                     <div>
-                        <span class="price">${{ property.price }}</span>
-                        <span class="type">{{ property.type|capitalize }}</span>
+                        <span class="bdg price">${{ property.price }}</span>
+                        <span class="bdg type">{{ property.type|capitalize }}</span>
                     </div>
-                    <p>{{ property.description }}</p>
+                    <p class="description">{{ property.description }}</p>
 
-                    <div>
+                    <div class="amenities">
                         <div>
                             <span class="material-icons-outlined">bed</span> &nbsp; {{ property.rooms}} Bedrooms
                         </div>

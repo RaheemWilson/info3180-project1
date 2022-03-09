@@ -1,0 +1,35 @@
+.form-container{
+    background-color: #fff;
+    box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 80%;
+}
+
+.input-field{
+    margin: 1rem 0;
+}
+
+input, select, textarea{
+    width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+input, select{
+    height: 40px;
+}
+
+input[type="file"]{
+    border: none;
+    border-radius: 0;
+}
+
+button{
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #3a80f5;
+    padding: 15px 32px;
+
+}
