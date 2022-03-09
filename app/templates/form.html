@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div>
+    <h1>Add New Property</h1>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="input-field">
+                <div class="input-label">
+                    {{ form.property_title.label}}
+                </div>
+                {{ form.property_title}}
+            </div>
+            <div class="input-field">
+                <div class="input-label">
+                    {{ form.property_desc.label}}
+                </div>
+                {{ form.property_desc}}
+            </div>
+            <div class="input-fields">
+                <div class="input-field">
+                    <div class="input-label">
+                        {{ form.no_rooms.label}}
+                    </div>
+                    {{ form.no_rooms}}
+                </div>
+                <div class="input-field">
+                    <div class="input-label">
+                        {{ form.no_bathrooms.label}}
+                    </div>
+                    {{ form.no_bathrooms}}
+                </div>
+                <div class="input-field">
+                    <div class="input-label">
+                        {{ form.price.label}}
+                    </div>
+                    {{ form.price}}
+                </div>
+                <div class="input-field">
+                    <div class="input-label">
+                        {{ form.type.label}}
+                    </div>
+                    {{ form.type}}
+                </div>
+                <div class="input-field">
+                    <div class="input-label">
+                        {{ form.location.label}}
+                    </div>
+                    {{ form.location}}
+                </div>
+            </div>
+            <div class="input-field">
+                <div class="input-label">
+                    {{ form.file_upload.label}}
+                </div>
+                {{ form.file_upload}}
+            </div>
+            <button type="submit">Add Property</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

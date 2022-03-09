@@ -5,8 +5,14 @@ Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file creates your application.
 """
 
+from crypt import methods
+from curses import flash
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
+from .forms import PropertyForm
+from app.models import Property
+from app import db
+from werkzeug.utils import secure_filename
 
 
 ###
@@ -21,6 +27,37 @@ def home():
 
 @app.route('/about/')
 def about():
+    """Render the website's about page."""
+    return render_template('about.html', name="Mary Jane")
+
+@app.route("/properties/create", methods=["GET", "POST"])
+def create_property():
+    form = PropertyForm()
+
+    if request.method == "POST":
+        if form.validate_on_submit():
+            property_title = request.form["property_title"]
+            property_desc = request.form["property_desc"]
+            no_rooms = request.form["no_rooms"]
+            no_bathrooms = request.form["no_bathrooms"]
+            price = request.form["price"]
+            location = request.form["location"]
+            type = request.form["type"]
+            file = form.file_upload.data
+            file_name = secure_filename(file.filename)
+
+
+            property = Property(property_title, property_desc, no_rooms, no_bathrooms, price, location, type, file_name)
+            db.session.add(property)
+            db.session.commit()
+            flash('Property was successfully created', 'success')
+
+            return redirect(url_for('display_properties'))
+
+    return render_template('form.html', form=form)
+
+@app.route('/about/')
+def display_properties():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
